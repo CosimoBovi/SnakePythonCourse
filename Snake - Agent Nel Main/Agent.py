@@ -56,3 +56,8 @@ class Agent:
         return np.array(state, dtype=bool)
 
    
+    def get_action(self):
+        final_move = [0,0,0]
+        move = random.randint(0, 2)
+        final_move[move] = 1
+        return final_move
