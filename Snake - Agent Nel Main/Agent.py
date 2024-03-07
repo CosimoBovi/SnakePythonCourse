@@ -61,3 +61,17 @@ class Agent:
         move = random.randint(0, 2)
         final_move[move] = 1
         return final_move
+    
+     
+    def play_step(self,action):
+        moveIdx=action.index(max(action))
+
+        result=ActionResult.GO
+        if moveIdx==0:
+            result = self.game.play_step(Action.STRAIGHT)
+        elif moveIdx==1:
+            result = self.game.play_step(Action.RIGHT)
+        elif moveIdx==2:
+            result = self.game.play_step(Action.LEFT)
+
+        return result

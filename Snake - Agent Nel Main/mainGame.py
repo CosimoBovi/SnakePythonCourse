@@ -35,8 +35,8 @@ def main():
     gameUI= SnakeGameUI(game)  # Crea un'interfaccia utente per il gioco 
     agent = Agent(game)
     while True:  # Ciclo principale del gioco
-        if(game.play_step(findAction(game))==ActionResult.GAMEOVER):  # Se il gioco è finito
-            quit() # chiude il programma
+        if(agent.play_step(agent.get_action())==ActionResult.GAMEOVER):
+             quit() # chiude il programma
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 
         
