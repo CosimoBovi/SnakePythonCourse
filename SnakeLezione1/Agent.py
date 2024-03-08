@@ -52,7 +52,12 @@ class Agent:
             game.food.y < game.head.y,  # food up
             game.food.y > game.head.y,  # food down
             ]
-     
+
         return np.array(state, dtype=bool)
 
-   
+    '''
+        usiamo numpy perchè:
+            1) Crea array omogenei invece di liste dinamiche
+            2) E' praticamente come utilizzare degli array in C, e questo migliora l'efficienza
+            3) Ma ha il vantaggio che sono implementate delle funzioni su di essi
+   '''
