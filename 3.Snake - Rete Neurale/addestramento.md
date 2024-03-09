@@ -20,6 +20,8 @@ Questi numeri dipendo dalla funzione di loss e sono calcolati dalla funzione di 
 In matematica il gradiente è un vettore che indica la direzione e l'intensità della massima variazione di una funzione rispetto alle sue variabili indipendenti. 
 
 
+***
+
 
 # Approfondimenti
 
