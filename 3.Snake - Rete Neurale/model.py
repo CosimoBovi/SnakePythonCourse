@@ -1,5 +1,6 @@
-import torch.nn as nn  # Importa il modulo nn di PyTorch per la definizione dei modelli neurali
-import torch.nn.functional as F  # Importa il modulo functional di PyTorch per le funzioni di attivazione
+import torch.nn as nn 
+import torch.optim as optim
+import torch.nn.functional as F  #
 
 # Definizione di un modello di rete neurale lineare
 class Linear_QNet(nn.Module):
@@ -27,11 +28,13 @@ class QTrainer:
         # Inizializza il modello
         self.model = model
 
-        # Crea un ottimizzatore Adam per aggiornare i pesi del modello
-        self.optimizer = optim.Adam(model.parameters(), lr=self.lr)
-        
+          
         # Definisce la funzione di loss Mean Squared Error Loss
         self.criterion = nn.MSELoss()
+
+        # Crea un ottimizzatore Adam per aggiornare i pesi del modello
+        self.optimizer = optim.Adam(model.parameters(), lr=self.lr)
+      
 
     def train_step(self,state):
         
@@ -66,6 +69,3 @@ class QTrainer:
 
         # Aggiorna i pesi e i bias del modello utilizzando l'ottimizzatore
         self.optimizer.step()
-
-        # Otteni le nuove predizioni del modello dopo l'aggiornamento
-        new_pred = self.model(state)
