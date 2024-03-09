@@ -65,9 +65,3 @@ Dove:
 
 - **Semplicità**: ReLU è una funzione semplice e veloce da calcolare. È una semplice funzione di attivazione basata su un'operazione elementare, il che la rende efficace in termini computazionali.
 - **Sparsità**: ReLU produce output sparsi, cioè si attiva solo quando l'input è positivo. Questa sparsità può aiutare a ridurre il rischio di overfitting, limitando l'interazione tra neuroni. Fa quindi in modo di ridurre il rumore.
-
-#### Utilizzo in reti neurali
-
-ReLU è ampiamente utilizzata come funzione di attivazione nei layer nascosti delle reti neurali. Essa è particolarmente efficace in reti neurali profonde, in cui può contribuire a mitigare il problema della scomparsa del gradiente e accelerare la convergenza durante l'addestramento della rete.
-
-Inoltre, ReLU viene spesso utilizzata come funzione di attivazione nei layer convoluzionali delle reti neurali convoluzionali (CNN), dove aiuta a catturare estraendo features significative dalle immagini.
