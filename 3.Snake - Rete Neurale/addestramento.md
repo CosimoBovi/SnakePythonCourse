@@ -18,7 +18,7 @@ MSE è ampiamente utilizzato in problemi di regressione, dove l'obiettivo è pre
 
 ### Alternative a MSE e perché usarle
 
-TLTR: MSE e le sue varianti sono utili nel caso di valori, Cross-Entropy Loss è utilizzato per classificare le immagini
+*** TLTR: MSE e le sue varianti sono utili nel caso di valori, Cross-Entropy Loss è utilizzato per classificare le immagini ***
 
 Esistono diverse alternative a MSE, a seconda delle esigenze specifiche del problema e delle caratteristiche del dataset:
 
@@ -52,7 +52,7 @@ Adam è ampiamente utilizzato in applicazioni di deep learning e machine learnin
 
 ### Alternative ad Adam e perché usarle
 
-TLTR: Adam è più efficiente ma richiede più risorse, SGD richiede meno risorse ma può bastare per modelli con pochi dati
+*** TLTR: Adam è più efficiente ma richiede più risorse, SGD richiede meno risorse ma può bastare per modelli con pochi dati ***
 
 Ci sono diverse alternative ad Adam, ciascuna con le proprie caratteristiche e vantaggi:
 
