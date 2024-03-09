@@ -1,6 +1,31 @@
+
 # Loss
 
-## Cos'è la funzione di loss
+La funzione di loss, o funzione di costo, è una misura che quantifica quanto il modello predittivo differisca dai valori di output desiderati durante il processo di addestramento. In sostanza, rappresenta l'errore tra le predizioni del modello e i valori reali del dataset di addestramento.
+
+MSE e le sue varianti sono utili nel caso di valori, Cross-Entropy Loss è utilizzato per classificare le immagini
+
+# Ottimizzatore
+
+Un ottimizzatore è un algoritmo utilizzato per modificare i parametri di un modello al fine di ridurre la funzione di loss durante il processo di addestramento. In sostanza, un ottimizzatore regola i pesi e i bias del modello in modo che le predizioni del modello si avvicinino sempre più ai valori desiderati.
+
+Adam è più efficiente ma richiede più risorse, SGD richiede meno risorse ma può bastare per modelli con pochi dati
+
+# Gradiente
+
+Il gradiente è un insieme di numeri che rappresentano quanto cambiare i parametri del modello durante la funzione di ottimizzazione l fine di minimizzare una funzione di perdita (loss function). 
+
+Questi numeri dipendo dalla funzione di loss e sono calcolati dalla funzione di ottimizzazione.
+
+In matematica il gradiente è un vettore che indica la direzione e l'intensità della massima variazione di una funzione rispetto alle sue variabili indipendenti. 
+
+
+
+# Approfondimenti
+
+## Loss
+
+### Cos'è la funzione di loss
 
 La funzione di loss, o funzione di costo, è una misura che quantifica quanto il modello predittivo differisca dai valori di output desiderati durante il processo di addestramento. In sostanza, rappresenta l'errore tra le predizioni del modello e i valori reali del dataset di addestramento.
 
@@ -18,8 +43,6 @@ MSE è ampiamente utilizzato in problemi di regressione, dove l'obiettivo è pre
 
 ### Alternative a MSE e perché usarle
 
-**TLTR: MSE e le sue varianti sono utili nel caso di valori, Cross-Entropy Loss è utilizzato per classificare le immagini**
-
 Esistono diverse alternative a MSE, a seconda delle esigenze specifiche del problema e delle caratteristiche del dataset:
 
 1. **MAE (Mean Absolute Error)**: È simile a MSE, ma calcola la media delle differenze assolute tra le previsioni del modello e i valori reali. È meno sensibile agli outlier rispetto a MSE.
@@ -32,9 +55,9 @@ Esistono diverse alternative a MSE, a seconda delle esigenze specifiche del prob
 
 Le alternative a MSE possono essere preferite in determinate situazioni, ad esempio quando si desidera penalizzare in modo diverso gli errori più grandi rispetto a quelli più piccoli, o quando si lavora con problemi di classificazione anziché regressione. La scelta della funzione di loss dipende dall'obiettivo del problema e dalle caratteristiche del dataset.
 
-# Ottimizzatore
+## Ottimizzatore
 
-## Cos'è un ottimizzatore
+### Cos'è un ottimizzatore
 
 Un ottimizzatore è un algoritmo utilizzato per modificare i parametri di un modello al fine di ridurre la funzione di loss durante il processo di addestramento. In sostanza, un ottimizzatore regola i pesi e i bias del modello in modo che le predizioni del modello si avvicinino sempre più ai valori desiderati.
 
@@ -51,8 +74,6 @@ Adam (Adaptive Moment Estimation) è un algoritmo di ottimizzazione ampiamente u
 Adam è ampiamente utilizzato in applicazioni di deep learning e machine learning per l'addestramento di reti neurali. È particolarmente popolare per la sua efficacia e facilità d'uso. Adam è adatto per una vasta gamma di problemi, inclusi problemi di classificazione, regressione, generazione di testo, visione artificiale e molto altro.
 
 ### Alternative ad Adam e perché usarle
-
-**TLTR: Adam è più efficiente ma richiede più risorse, SGD richiede meno risorse ma può bastare per modelli con pochi dati**
 
 Ci sono diverse alternative ad Adam, ciascuna con le proprie caratteristiche e vantaggi:
 
