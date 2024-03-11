@@ -1,5 +1,6 @@
 import numpy as np
 from SnakeModel import *
+from model import *  # Aggiungo l'import del model
 
 # Ascola gli stati e prende decisioni sulle azioni
 class Agent:
@@ -57,8 +58,8 @@ class Agent:
 
         return np.array(state, dtype=bool)  # Restituisce lo stato come un array numpy di booleani
    
-    # Metodo per ottenere l'azione da intraprendere
-    def get_action(self):
+    # Aggiungo il passaggio del model e dello stato attuale
+    def get_action(self,model,state):
         '''
             Per decidere la mossa da compiere utilizziamo un vettore, dove ogni indice rappresenta un'azione:
                 0: diritto
@@ -66,9 +67,28 @@ class Agent:
                 2: gira a sinistra
             Tutti e tre gli elementi possono avere un valore, e sarà scelto il massimo
         '''
-        final_move = [0, 0, 0]  
-        move = random.randint(0, 2)  # Sceglie casualmente una mossa tra 0, 1 e 2
-        final_move[move] = 1  # Imposta la mossa scelta come attiva (1)
+        #Al posto del random prendo l'azione dalla rete neurale creata
+        
+        # Inizializzazione di una lista finale di mosse, inizialmente tutte impostate a 0.
+        final_move = [0, 0, 0]
+
+        # Converte lo stato in un tensore di tipo booleano utilizzando torch.tensor().
+        # un tensor è una struttura dati tipizzata e ottimizzata per le operazioni sulle rete neurali
+        # oltre ai dati contiene informazioni su di essi.
+        state0 = torch.tensor(state, dtype=torch.bool)
+
+        # Effettua la previsione utilizzando il modello per ottenere i punteggi per ogni possibile mossa.
+        prediction = model(state0)
+
+        # Determina la mossa con il punteggio più alto utilizzando torch.argmax().
+        # .item() converte il risultato in un valore Python standard.
+        move = torch.argmax(prediction).item()
+
+        # Imposta l'elemento corrispondente alla mossa selezionata nella lista final_move a 1.
+        final_move[move] = 1
+
+
+
         return final_move  # Restituisce la lista delle mosse finali
 
     # Metodo per eseguire un passo nel gioco in base all'azione scelta
