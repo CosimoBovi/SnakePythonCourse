@@ -34,8 +34,9 @@ def main():
     game = SnakeGame()  # Crea un nuovo gioco 
     gameUI= SnakeGameUI(game)  # Crea un'interfaccia utente per il gioco 
     agent = Agent(game)
+    model = Linear_QNet(agent.get_state().shape[0], 256, 3)
     while True:  # Ciclo principale del gioco
-        if(agent.play_step(agent.get_action())==ActionResult.GAMEOVER):
+        if(agent.play_step(agent.get_action(model,agent.get_state()))==ActionResult.GAMEOVER):
              quit() # chiude il programma
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 

@@ -75,7 +75,7 @@ class Agent:
         # Converte lo stato in un tensore di tipo booleano utilizzando torch.tensor().
         # un tensor è una struttura dati tipizzata e ottimizzata per le operazioni sulle rete neurali
         # oltre ai dati contiene informazioni su di essi.
-        state0 = torch.tensor(state, dtype=torch.bool)
+        state0 = torch.tensor(state, dtype=torch.float)
 
         # Effettua la previsione utilizzando il modello per ottenere i punteggi per ogni possibile mossa.
         prediction = model(state0)
