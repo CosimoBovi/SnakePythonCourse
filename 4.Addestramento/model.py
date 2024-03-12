@@ -17,6 +17,9 @@ class Linear_QNet(nn.Module):
         x = F.relu(self.linear1(x))  # Applica la funzione di attivazione ReLU al primo layer lineare
         x = self.linear2(x)  # Passa l'output del primo layer al secondo layer lineare senza attivazione
         return x  # Restituisce l'output del modello
+    
+
+    
 class QTrainer:
 
     def __init__(self, model, lr=0.001):

@@ -41,8 +41,7 @@ def main():
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 
         
-        print(agent.get_state())
-
+        
 # Se il modulo è eseguito come script principale
 if __name__ == "__main__":
     main()  # Avvia la funzione principale
