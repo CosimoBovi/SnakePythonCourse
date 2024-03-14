@@ -14,9 +14,9 @@ L'aggiornamento dei valori Q avviene utilizzando l'equazione di Bellman, che esp
 
 L'equazione di Bellman per il Q-Learning è espressa come segue:
 
-\[
-Q(s, a) = R(s, a) + \gamma \cdot \max_{a'}[Q(s', a')]
-\]
+\[ Q(s, a) = R(s, a) + \gamma \cdot \max_{a'}[Q(s', a')] \]
+
+
 
 Dove:
 - \( Q(s, a) \) è il valore Q per lo stato \( s \) e l'azione \( a \).
