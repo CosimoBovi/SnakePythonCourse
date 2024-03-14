@@ -14,14 +14,13 @@ L'aggiornamento dei valori Q avviene utilizzando l'equazione di Bellman, che esp
 
 L'equazione di Bellman per il Q-Learning è espressa come segue:
 
-\[ Q(s, a) = R(s, a) + \gamma \cdot \max_{a'}[Q(s', a')] \]
-
+Q(s, a) = R(s, a) + γ * max_{a'}[Q(s', a')]
 
 
 Dove:
 - \( Q(s, a) \) è il valore Q per lo stato \( s \) e l'azione \( a \).
 - \( R(s, a) \) è la ricompensa immediata ottenuta eseguendo l'azione \( a \) nello stato \( s \).
-- \( \gamma \) è il fattore di sconto che controlla l'importanza delle ricompense future rispetto a quelle immediate.
+- \( γ \) è il fattore di sconto che controlla l'importanza delle ricompense future rispetto a quelle immediate.
 - \( \max_{a'}[Q(s', a')] \) rappresenta il valore Q massimo previsto per lo stato successivo \( s' \), considerando tutte le possibili azioni \( a' \).
 
 ### Parallelismo con il Codice Python
