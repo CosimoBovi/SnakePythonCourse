@@ -141,3 +141,4 @@ def nextPointOnDirection(x, y, direction):
         y -= BLOCK_SIZE
     
     return Point(x, y)
+

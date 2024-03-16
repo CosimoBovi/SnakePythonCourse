@@ -22,18 +22,15 @@ def main():
         done=False
         if result==ActionResult.GAMEOVER:
             done=True
-            reward = -100
-        if result==ActionResult.FRUIT:
-            reward= 400
-        else:
-            reward= -1
+        reward=getRewardByResult(result)
 
         trainer.train_step(stateOld,action,reward,stateNew,done)
 
         if(done):
              if game.score>0:
                  print("score:", game.score, "azioni:", agent.numAction )
-             game.reset() # chiude il programma
+             game.reset() 
+        
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 
         

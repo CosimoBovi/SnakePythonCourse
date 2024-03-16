@@ -33,7 +33,7 @@ def main():
         if(done):
              if game.score>0:
                  print("score:", game.score, "azioni:", agent.numAction )
-             game.reset() # chiude il programma
+             game.reset() 
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 
         

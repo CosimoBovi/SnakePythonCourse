@@ -112,12 +112,3 @@ class Agent:
             result = self.game.play_step(Action.LEFT)  # Gira a sinistra
 
         return result  # Restituisce il risultato dell'azione
-
-def getRewardByResult(result):
-    if result==ActionResult.GAMEOVER:        
-        reward = -100
-    if result==ActionResult.FRUIT:
-        reward= 400
-    else:
-        reward= -1
-    return reward
