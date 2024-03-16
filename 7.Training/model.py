@@ -72,7 +72,7 @@ class QTrainer:
         # Calcolo della loss tra predizioni del modello e target
         loss = self.criterion(target, pred)
 
-        # Cai accumulalcolo dei gradienti dell'errore rispetto ai pesi e ai bias del modello
+        # Calcola i gradienti dell'errore rispetto ai pesi e ai bias del modello
         loss.backward()
 
         # Aggiornamento dei pesi e dei bias del modello utilizzando l'ottimizzatore

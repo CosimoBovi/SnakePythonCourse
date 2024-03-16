@@ -1,7 +1,6 @@
 from SnakeGameUI import *
 from SnakeModel import *
 from Agent import *
-from TrainerHandle import *
 
 # Funzione principale del programma
 def main():
@@ -10,7 +9,6 @@ def main():
     agent = Agent(game)
     model = Linear_QNet(agent.get_state().shape[0], 256, 3)
     trainer = QTrainer(model,0.9)
-    trainerHandle = TrainerHandle(trainer)
     while True:  # Ciclo principale del gioco
 
         stateOld = agent.get_state()
@@ -24,17 +22,18 @@ def main():
         done=False
         if result==ActionResult.GAMEOVER:
             done=True
-        reward=getRewardByResult(result)
+            reward = -100
+        if result==ActionResult.FRUIT:
+            reward= 400
+        else:
+            reward= -1
 
-        trainerHandle.train_short_memory(stateOld,action,reward,stateNew,done)
-        trainerHandle.remember(stateOld,action,reward,stateNew,done)
-        
+        trainer.train_step(stateOld,action,reward,stateNew,done)
+
         if(done):
-            if game.score>0:
-                print("score:", game.score, "azioni:", agent.numAction )
-            trainerHandle.train_long_memory()
-            game.reset() 
-        
+             if game.score>0:
+                 print("score:", game.score, "azioni:", agent.numAction )
+             game.reset() 
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 
         

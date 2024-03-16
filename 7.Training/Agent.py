@@ -5,7 +5,7 @@ from model import *  # Aggiungo l'import del model
 # Ascola gli stati e prende decisioni sulle azioni
 class Agent:
     
-    def __init__(self, game, epsilonMax=0.8, epsilonMin=0.1, explorationNumber=50000):
+    def __init__(self, game, epsilonMax=0.5, epsilonMin=0, explorationNumber=50000):
         # Inizializzazione dell'agente Q-Learning
         self.game = game
         self.epsilonMax = epsilonMax  # Epsilon massimo
