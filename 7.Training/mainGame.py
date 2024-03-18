@@ -11,6 +11,7 @@ def main():
     model = Linear_QNet(agent.get_state().shape[0], 256, 3)
     trainer = QTrainer(model,0.9)
     trainerHandle = TrainerHandle(trainer)
+    trainLongNumber= 0
     while True:  # Ciclo principale del gioco
 
         stateOld = agent.get_state()
@@ -32,12 +33,16 @@ def main():
         if(done):
             if game.score>0:
                 print("score:", game.score, "azioni:", agent.numAction )
-            trainerHandle.train_long_memory()
             game.reset() 
+
+        
         
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 
-        
+        trainLongNumber+=1
+        if trainLongNumber>1000:
+            trainLongNumber=0
+            trainerHandle.train_long_memory()
         
 # Se il modulo è eseguito come script principale
 if __name__ == "__main__":
