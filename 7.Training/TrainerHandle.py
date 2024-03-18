@@ -1,8 +1,9 @@
 import random
+import numpy as np
 from collections import deque
 from SnakeModel import ActionResult
 
-MAX_MEMORY = 1000
+MAX_MEMORY = 1000000
 BATCH_SIZE = 1000
 
 class TrainerHandle:
@@ -22,6 +23,13 @@ class TrainerHandle:
             mini_sample = self.memory
 
         states, actions, rewards, next_states, dones = zip(*mini_sample)
+
+        states = np.array(states)
+        actions = np.array(actions)
+        rewards = np.array(rewards)
+        next_states = np.array(next_states)
+
+        
         self.trainer.train_step(states, actions, rewards, next_states, dones)
     
     # per velocità di esecuzione short memeory è solo uno
