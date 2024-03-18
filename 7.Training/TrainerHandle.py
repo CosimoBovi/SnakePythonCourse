@@ -3,7 +3,7 @@ import numpy as np
 from collections import deque
 from SnakeModel import ActionResult
 
-MAX_MEMORY = 1000000
+MAX_MEMORY = 100000
 BATCH_SIZE = 1000
 
 class TrainerHandle:

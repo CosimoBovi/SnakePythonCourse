@@ -30,20 +30,21 @@ def main():
         trainerHandle.train_short_memory(stateOld,action,reward,stateNew,done)
         trainerHandle.remember(stateOld,action,reward,stateNew,done)
         
-        if(done):
-            if game.score>0:
-                print("score:", game.score, "azioni:", agent.numAction )
-            game.reset() 
-
-        
-        
-        gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
-
         trainLongNumber+=1
         if trainLongNumber>1000:
             trainLongNumber=0
             trainerHandle.train_long_memory()
+
+        if(done):
+            if game.score>0:
+                print("score:", game.score, "azioni:", agent.numAction )
+            trainLongNumber=0
+            trainerHandle.train_long_memory()
+            game.reset()
+
+       
         
+        gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 # Se il modulo è eseguito come script principale
 if __name__ == "__main__":
     main()  # Avvia la funzione principale
