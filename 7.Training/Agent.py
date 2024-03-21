@@ -116,7 +116,7 @@ class Agent:
 def getRewardByResult(result):
     if result==ActionResult.GAMEOVER:        
         reward = -200
-    if result==ActionResult.FRUIT:
+    elif result==ActionResult.FRUIT:
         reward= 400
     else:
         reward= -1

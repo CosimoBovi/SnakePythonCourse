@@ -23,7 +23,7 @@ def main():
         if result==ActionResult.GAMEOVER:
             done=True
             reward = -100
-        if result==ActionResult.FRUIT:
+        elif result==ActionResult.FRUIT:
             reward= 400
         else:
             reward= -1

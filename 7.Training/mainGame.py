@@ -31,12 +31,9 @@ def main():
         trainerHandle.remember(stateOld,action,reward,stateNew,done)
         
         trainLongNumber+=1
-        if trainLongNumber>1000:
-            trainLongNumber=0
-            trainerHandle.train_long_memory()
 
-        if(done):
-            if game.score>0:
+        if done or trainLongNumber>1000 :
+            if game.score>0 and done:
                 print("score:", game.score, "azioni:", agent.numAction )
             trainLongNumber=0
             trainerHandle.train_long_memory()
