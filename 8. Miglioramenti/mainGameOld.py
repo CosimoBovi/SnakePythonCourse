@@ -12,7 +12,7 @@ def main():
     trainer = QTrainer(model,0.9)
     trainerHandle = TrainerHandle(trainer)
     trainLongNumber= 0
-    rewardSum=0
+
     while True:  # Ciclo principale del gioco
 
         stateOld = agent.get_state()
@@ -27,26 +27,21 @@ def main():
         if result==ActionResult.GAMEOVER:
             done=True
         reward=getRewardByResult(result)
-        if result==ActionResult.FRUIT:
-            print(agent.game.head.x, agent.game.head.y, agent.game.food.x, agent.game.food.y)
 
         trainerHandle.train_short_memory(stateOld,action,reward,stateNew,done)
         trainerHandle.remember(stateOld,action,reward,stateNew,done)
         
-        rewardSum+=reward
-
         trainLongNumber+=1
 
-        if done or trainLongNumber>10000:
-            if game.score>0:
-                print("score:", game.score, "azioni:", agent.numAction, "reward:", rewardSum)
-            if done and reward>-200:
-                print("reward:", reward)
-            print("rewardSumMean:", rewardSum/trainLongNumber)
-            rewardSum=0
+        if done or trainLongNumber>1000 :
             trainLongNumber=0
             trainerHandle.train_long_memory()
-            game.reset()
+            if done:
+                if game.score>0:
+                    print("score:", game.score, "azioni:", agent.numAction )
+                game.reset()
+       
+          
 
        
         

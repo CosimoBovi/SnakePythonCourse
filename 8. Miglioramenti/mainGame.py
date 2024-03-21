@@ -12,7 +12,9 @@ def main():
     trainer = QTrainer(model,0.9)
     trainerHandle = TrainerHandle(trainer)
     trainLongNumber= 0
+    iterazioni=0
     while True:  # Ciclo principale del gioco
+        iterazioni+=1
 
         stateOld = agent.get_state()
 
@@ -25,6 +27,11 @@ def main():
         done=False
         if result==ActionResult.GAMEOVER:
             done=True
+        elif result==ActionResult.FRUIT:
+            iterazioni=0
+        elif iterazioni>100:
+            done=True
+            result=ActionResult.LOOP
         reward=getRewardByResult(result)
 
         trainerHandle.train_short_memory(stateOld,action,reward,stateNew,done)
@@ -38,6 +45,7 @@ def main():
             if done:
                 if game.score>0:
                     print("score:", game.score, "azioni:", agent.numAction )
+                iterazioni=0
                 game.reset()
        
           
