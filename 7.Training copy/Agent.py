@@ -115,9 +115,13 @@ class Agent:
 
     def getRewardByResult(self, result):
         if result==ActionResult.GAMEOVER:        
-            reward = -200
+            reward = -2000
         elif result==ActionResult.FRUIT:
-            reward= 400
+            reward= 4000
         else:
-            reward= -self.game.gameStep*0.01+self.game.score
+            if(self.game.score>=self.game.gameStep*0.01):
+                reward= 0
+            else:
+                reward= -(self.game.gameStep*0.01-self.game.score)
+           
         return reward
