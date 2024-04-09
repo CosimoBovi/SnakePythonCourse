@@ -5,7 +5,7 @@ from model import *  # Aggiungo l'import del model
 # Ascola gli stati e prende decisioni sulle azioni
 class Agent:
     
-    def __init__(self, game, epsilonMax=0.8, epsilonMin=0, explorationNumber=80000):
+    def __init__(self, game, epsilonMax=0.8, epsilonMin=0, explorationNumber=200000):
         # Inizializzazione dell'agente Q-Learning
         self.game = game
         self.epsilonMax = epsilonMax  # Epsilon massimo
@@ -114,14 +114,12 @@ class Agent:
         return result  # Restituisce il risultato dell'azione
 
     def getRewardByResult(self, result):
+        reward = 0
         if result==ActionResult.GAMEOVER:        
             reward = -2000
         elif result==ActionResult.FRUIT:
-            reward= 4000
+            reward= 2000
         else:
-            if(self.game.score>=self.game.gameStep*0.01):
-                reward= 0
-            else:
-                reward= -(self.game.gameStep*0.01-self.game.score)
-           
+            if((self.game.score+3)*100<=self.game.gameStep):
+                reward = -2000
         return reward

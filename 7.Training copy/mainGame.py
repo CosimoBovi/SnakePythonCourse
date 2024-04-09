@@ -28,6 +28,10 @@ def main():
         if result==ActionResult.GAMEOVER:
             done=True
         reward=agent.getRewardByResult(result)
+        if reward<=-2000:
+            done=True
+        elif reward>=2000:
+            trainerHandle.train_long_memory()
         rewardSum+=reward
         rewardStep+=1
         trainerHandle.train_short_memory(stateOld,action,reward,stateNew,done)
@@ -37,17 +41,15 @@ def main():
 
         if done or trainLongNumber>1000 :
             trainLongNumber=0
-            trainerHandle.train_long_memory()
+           
             if done:
                 print("score:", game.score, "azioni:", agent.numAction, "rewardNow:", rewardSum/rewardStep) 
                 rewardStep=0
                 rewardSum=0
+                trainerHandle.train_long_memory(1000)
                 game.reset()
-            
-            rewardSum=0
-       
-          
-
+            else:
+                trainerHandle.train_long_memory()
        
         
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
