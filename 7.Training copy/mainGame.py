@@ -12,8 +12,7 @@ def main():
     trainer = QTrainer(model,0.9)
     trainerHandle = TrainerHandle(trainer)
     trainLongNumber= 0
-    rewardSum=0
-    rewardStep=0
+    loopCount=0
     while True:  # Ciclo principale del gioco
 
         stateOld = agent.get_state()
@@ -27,13 +26,12 @@ def main():
         done=False
         if result==ActionResult.GAMEOVER:
             done=True
-        reward=agent.getRewardByResult(result)
-        if reward<=-2000:
-            done=True
-        elif reward>=2000:
-            trainerHandle.train_long_memory()
-        rewardSum+=reward
-        rewardStep+=1
+        elif result==ActionResult.FRUIT:
+            loopCount=0
+        elif loopCount>400:
+            result=ActionResult.LOOP
+        reward=getRewardByResult(result)
+
         trainerHandle.train_short_memory(stateOld,action,reward,stateNew,done)
         trainerHandle.remember(stateOld,action,reward,stateNew,done)
         
@@ -41,17 +39,17 @@ def main():
 
         if done or trainLongNumber>1000 :
             trainLongNumber=0
-           
+            trainerHandle.train_long_memory()
             if done:
-                print("score:", game.score, "azioni:", agent.numAction, "rewardNow:", rewardSum/rewardStep) 
-                rewardStep=0
-                rewardSum=0
-                trainerHandle.train_long_memory(1000)
+                if game.score>0:
+                    print("score:", game.score, "azioni:", agent.numAction )
+                loopCount=0
                 game.reset()
-            else:
-                trainerHandle.train_long_memory()
        
-        
+          
+
+       
+        loopCount+=1
         gameUI.update_ui()  # Aggiorna l'interfaccia utente del gioco
 # Se il modulo è eseguito come script principale
 if __name__ == "__main__":

@@ -54,7 +54,7 @@ class SnakeGame:
         self.score = 0  # Punteggio iniziale
         self.food = None  # Posizione del cibo
         self._place_food()  # Posiziona il cibo
-        self.gameStep = 0  # Iterazione del frame
+        self.frame_iteration = 0  # Iterazione del frame
 
     # Metodo per posizionare il cibo in modo casuale nel gioco
     def _place_food(self):
@@ -66,7 +66,7 @@ class SnakeGame:
             
     # Metodo per eseguire un passo nel gioco in base all'azione del giocatore
     def play_step(self, action):
-        self.gameStep += 1  # Incrementa l'iterazione del frame
+        self.frame_iteration += 1  # Incrementa l'iterazione del frame
         
         result = ActionResult.GO  # Inizializza il risultato dell'azione come 'GO'
 
