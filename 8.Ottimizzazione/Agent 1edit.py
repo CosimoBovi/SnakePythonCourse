@@ -119,7 +119,7 @@ def getRewardByResult(result):
     elif result==ActionResult.FRUIT:
         reward= 400
     elif result==ActionResult.LOOP:
-        reward= -100
+        reward = -200
     else:
         reward= -1
     return reward
