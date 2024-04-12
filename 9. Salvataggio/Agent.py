@@ -1,17 +1,20 @@
 import numpy as np
 from SnakeModel import *
+import math
 from model import *  # Aggiungo l'import del model
 
 # Ascola gli stati e prende decisioni sulle azioni
 class Agent:
     
-    def __init__(self, game, epsilonMax=0.8, epsilonMin=0.1, explorationNumber=50000):
+    def __init__(self, game, epsilonMax=0.8, epsilonMin=0, explorationNumber=80000):
         # Inizializzazione dell'agente Q-Learning
         self.game = game
         self.epsilonMax = epsilonMax  # Epsilon massimo
         self.epsilonMin = epsilonMin  # Epsilon minimo
         self.explorationNumber = explorationNumber  # Numero di esplorazioni
         self.numAction = 0  # Numero di azioni eseguite
+
+        self.avvicinamento=False
 
     # Metodo per ottenere lo stato attuale del gioco
     def get_state(self):
@@ -102,6 +105,9 @@ class Agent:
     def play_step(self, action):
         moveIdx = action.index(max(action))  # Trova l'indice della mossa con il valore massimo
 
+        xh, yh = self.game.head.x, self.game.head.y
+        xf, yf = self.game.food.x, self.game.food.y
+        oldDistance = calcola_distanza(xh,yh,xf,yf)
         result = ActionResult.GO  # Inizializza il risultato dell'azione come 'GO'
         # Esegue il passo del gioco in base alla mossa scelta
         if moveIdx == 0:
@@ -111,4 +117,32 @@ class Agent:
         elif moveIdx == 2:
             result = self.game.play_step(Action.LEFT)  # Gira a sinistra
 
+        xh, yh = self.game.head.x, self.game.head.y
+        xf, yf = self.game.food.x, self.game.food.y
+        newDistance= calcola_distanza(xh,yh,xf,yf)
+
+        if(newDistance<oldDistance):
+            self.avvicinamento=True
+        else:
+            self.avvicinamento=False
+
         return result  # Restituisce il risultato dell'azione
+
+    def getRewardByResult(self, result):
+       
+        if result==ActionResult.GAMEOVER:        
+            reward = -200
+        elif result==ActionResult.FRUIT:
+            reward= 600
+        elif result==ActionResult.LOOP:
+            reward = -400
+        else:
+            if self.avvicinamento:
+                reward = 1
+            else:
+                reward =-1
+        return reward
+    
+def calcola_distanza(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+

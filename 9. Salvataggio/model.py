@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn 
 import torch.optim as optim
 import torch.nn.functional as F  
+import os
 
 # Definizione di un modello di rete neurale lineare
 class Linear_QNet(nn.Module):
@@ -18,6 +19,23 @@ class Linear_QNet(nn.Module):
         x = self.linear2(x)  # Passa l'output del primo layer al secondo layer lineare senza attivazione
         return x  # Restituisce l'output del modello
     
+    def save(self, file_name='model.pth'):
+       
+        if not os.path.exists(self.model_folder_path):
+            os.makedirs(self.model_folder_path)
+
+        file_name = os.path.join(self.model_folder_path, file_name)
+        torch.save(self.state_dict(), file_name)
+
+    def load(self, file_name='model.pth'):
+        model_folder_path = './model'
+        file_path = os.path.join(model_folder_path, file_name)
+
+        if os.path.exists(file_path):
+            self.load_state_dict(torch.load(file_path))
+            return True
+
+        return False
 
     
 class QTrainer:
@@ -44,36 +62,36 @@ class QTrainer:
         next_state = torch.tensor(next_state, dtype=torch.float)
         action = torch.tensor(action, dtype=torch.int)
         reward = torch.tensor(reward, dtype=torch.int)
-
-        # Ottieni le predizioni del modello per lo stato corrente
+        
+        # Faccio in modo che se ottengo dei tensori unidimensionali(vettori) li trasformo in
+        # bidimensionali(matrici) con una dimensione pari ad uno. Cosi posso sempre usarli come matrici
+        if len(state.shape) == 1:
+            state = torch.unsqueeze(state, 0)  # Aggiunge una dimensione agli input
+            next_state = torch.unsqueeze(next_state, 0)
+            action = torch.unsqueeze(action, 0)
+            reward = torch.unsqueeze(reward, 0)
+            done = (done, )  # Non conviene gestire done come un tensore quindi se è un dato unico lo trasformo in una tupla
+        
+        
         pred = self.model(state)
-
-        # Effettua una copia delle predizioni per utilizzarle come target
+            
         target = pred.clone()
 
-        # Per calcolare l'azione più corretta ci basiamo su ricompense
-        # più la ricompesa è alta più la mia azione è stata corretta
-        Q_new = reward
-        # Esistono formule specifiche per tener conto non solo della ricompensa attuale
-        # ma anche quanto questa influisca sulle ricompense future
-        if not done:
-            Q_next = torch.max(self.model(next_state)) 
-            Q_new = reward + self.gamma *  Q_next
-
-        # la predizione ci da tutti i valori delle azioni
-        # ma noi sappiamo che l'azione è quella maggiore
-        # con torch.argmax(action).item() prendiamo l'indice dell'azione maggiore, cioè quella scelta
-        # e cambiamo solo il valore associato a quell'azione
-        target[torch.argmax(action).item()] = Q_new
-
-        # Azzeramento dei gradienti accumulati in precedenza
+        for idx in range(len(done)):  # Loop per gestire più campioni
+            Q_new = reward[idx]
+            if not done[idx]:
+                Q_next= torch.max(self.model(next_state[idx]))
+                Q_new = reward[idx] + self.gamma * Q_next
+            target[idx][torch.argmax(action[idx]).item()] = Q_new  # Modifica del target per gestire più campioni
+        
+        # Azzeramento dei gradientti in precedenza
         self.optimizer.zero_grad()
 
-        # Calcola l'errore tra le predizioni del modello e il target
+        # Calcolo della loss tra predizioni del modello e target
         loss = self.criterion(target, pred)
 
         # Calcola i gradienti dell'errore rispetto ai pesi e ai bias del modello
         loss.backward()
 
-        # Aggiorna i pesi e i bias del modello utilizzando l'ottimizzatore
+        # Aggiornamento dei pesi e dei bias del modello utilizzando l'ottimizzatore
         self.optimizer.step()
