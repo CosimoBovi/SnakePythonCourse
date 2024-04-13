@@ -8,7 +8,7 @@ import os
 class Linear_QNet(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super().__init__()  # Chiama il costruttore della classe madre di nn.Module
-        self.model_folder_path = './salvataggio/model'  # Percorso della cartella per il salvataggio dei modelli
+        self.model_folder_path = './Training/model'  # Percorso della cartella per il salvataggio dei modelli
         self.num_states = input_size  # Numero di stati di input
         self.linear1 = nn.Linear(input_size, hidden_size)  # Layer lineare di input_size a hidden_size
         self.linear2 = nn.Linear(hidden_size, output_size)  # Layer lineare di hidden_size a output_size
@@ -28,11 +28,11 @@ class Linear_QNet(nn.Module):
         torch.save(self.state_dict(), file_name)
 
     def load(self, file_name='model.pth'):
-        model_folder_path = './model'
-        file_path = os.path.join(model_folder_path, file_name)
+        file_path = os.path.join(self.model_folder_path, file_name)
 
         if os.path.exists(file_path):
             self.load_state_dict(torch.load(file_path))
+            self.train()
             return True
 
         return False
